@@ -4,6 +4,7 @@ describe MoviesController do
   before(:each) do
     @movie = Movie.create(:title => "Good Movie", :director => "Bob")
   end
+
   describe "GET edit" do 
 
     it "should make the movie with given id available to the the view" do
@@ -13,7 +14,7 @@ describe MoviesController do
 
     it "should render the movie edit view" do 
       get :edit, :id => @movie.id
-      expect(response).to render_template('edit')
+      response.should render_template('edit')
     end
 
   end
@@ -42,7 +43,7 @@ describe MoviesController do
 
     it "should render the similar movies view" do 
       get :similar, :id => @movie.id, :field => "director"
-      expect(response).to render_template('similar')
+      response.should render_template('similar')
     end
 
     it "should redirect to the home page when no similar movies are found" do

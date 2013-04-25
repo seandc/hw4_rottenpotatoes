@@ -67,7 +67,18 @@ class MoviesController < ApplicationController
   def similar
     @movie = Movie.find(params[:id])
     @field = params[:field]
-    @movies = Movie.where(@field => @movie.send(@field))
+    @value = @movie.send(@field)
+    @movies = Movie.where(@field => @value)
+    .where(Movie.arel_table[:id].not_eq(@movie.id))
+
+    if !@value || @value.empty?
+      redirect_to '/'
+      flash[:notice] = "'#{@movie.title}' has no #{@field} info"
+    elsif @movies.empty?
+      redirect_to '/'
+      flash[:notice] = "Couldn't find any similar movies"
+    end
+
   end
 
 end

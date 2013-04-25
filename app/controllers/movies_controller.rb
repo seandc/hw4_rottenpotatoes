@@ -64,4 +64,10 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
 
+  def similar
+    @movie = Movie.find(params[:id])
+    @field = params[:field]
+    @movies = Movie.where(@field => @movie.send(@field))
+  end
+
 end

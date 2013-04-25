@@ -17,7 +17,15 @@ module NavigationHelpers
       '/'
     when /^the edit page for "(.*)"/
       id = Movie.find_by_title($1).id
-      '/movies/' + id.to_s + '/edit'
+      edit_movie_path(id)
+
+    when /^the details page for "(.*)"/
+      id = Movie.find_by_title($1).id
+      movie_path(id)
+
+    when /^the Similar Movies page for "(.*)"/
+      id = Movie.find_by_title($1).id
+      similar_movies_path(id, 'director')
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
